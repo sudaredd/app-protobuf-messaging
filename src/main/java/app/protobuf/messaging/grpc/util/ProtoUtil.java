@@ -29,14 +29,14 @@ public class ProtoUtil {
         try {
             parserMethod = messageType.getMethod("parser");
         } catch (NoSuchMethodException e) {
-            throw new RuntimeException("this should never happen, unable to resolve parser method for protobuf message", e);
+            throw new RuntimeException("Unable to resolve parser method for protobuf message", e);
         }
         Parser<T> messageParser;
         try {
             // noinspection unchecked
             messageParser = (Parser<T>) parserMethod.invoke(null);
         } catch (IllegalAccessException | InvocationTargetException e) {
-            throw new RuntimeException("unable to determine parser for protobuf message", e);
+            throw new RuntimeException("Unable to determine parser for protobuf message", e);
         }
         return tryParse(bytes, messageParser);
     }
