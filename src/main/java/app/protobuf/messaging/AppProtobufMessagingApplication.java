@@ -1,5 +1,7 @@
 package app.protobuf.messaging;
 
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -43,6 +45,13 @@ public class AppProtobufMessagingApplication {
             containerFactory.setConsumerFactory(consumerFactory);
             containerFactory.getContainerProperties().setAckMode(ContainerProperties.AckMode.RECORD);
             return containerFactory;
+        }
+        @Bean
+        public ManagedChannel managedChannel() {
+            return ManagedChannelBuilder
+                    .forAddress("localhost",9090)
+                    .usePlaintext(true)
+                    .build();
         }
     }
 

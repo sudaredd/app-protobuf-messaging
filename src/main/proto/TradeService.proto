@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package app.protobuf.messaging.model;
+option java_multiple_files=true;
+
+enum BuySell {
+  BUY=0;
+  SELl=1;
+}
+message Trade {
+  string tradeId = 1;
+  string symbol = 2;
+  double price = 3;
+  int32 quantity = 4;
+  string account=5;
+  BuySell buySell=6;
+}
+
+message TradeRequest {
+  Trade trade=1;
+}
+message TradeResponse {
+  string tradeId=1;
+}
+message FindTradeById {
+  string tradeId=1;
+}
+message TradeResponseList {
+  repeated Trade trade=1;
+}
+service TradeService {
+  rpc sendTrade(TradeRequest) returns (TradeResponse);
+  rpc findByTradeId(FindTradeById) returns (Trade);
+  rpc findAll(google.protobuf.Empty) returns (TradeResponseList);
+}
