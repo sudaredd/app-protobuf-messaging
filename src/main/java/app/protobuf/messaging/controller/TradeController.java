@@ -3,7 +3,6 @@ package app.protobuf.messaging.controller;
 import app.protobuf.messaging.grpc.server.TradeServiceImpl;
 import app.protobuf.messaging.model.*;
 import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,10 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TradeController {
 
-    @Autowired
-    private TradeServiceImpl tradeService;
-    @Autowired
-    private ManagedChannel managedChannel;
+    private final ManagedChannel managedChannel;
 
     @PostMapping("/trade/send")
     public String sendTrade(@RequestBody TradeNew trade) {

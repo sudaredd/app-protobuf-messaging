@@ -3,7 +3,6 @@ package app.protobuf.messaging.grpc.server;
 import app.protobuf.messaging.grpc.util.ProtoUtil;
 import app.protobuf.messaging.model.TradeResponse;
 import app.protobuf.messaging.model.TradeServiceGrpc;
-import io.grpc.ManagedChannel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
@@ -15,8 +14,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 @GrpcService
 public class TradeServiceImpl extends TradeServiceGrpc.TradeServiceImplBase {
 
-    @Autowired
-    private KafkaTemplate kafkaTemplate;
+    private final KafkaTemplate<String, byte[]> kafkaTemplate;
 
     public void sendTrade(app.protobuf.messaging.model.TradeRequest request,
                           io.grpc.stub.StreamObserver<app.protobuf.messaging.model.TradeResponse> responseObserver) {

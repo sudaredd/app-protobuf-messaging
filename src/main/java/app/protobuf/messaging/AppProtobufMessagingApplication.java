@@ -28,40 +28,4 @@ public class AppProtobufMessagingApplication {
 
         SpringApplication.run(AppProtobufMessagingApplication.class, args);
     }
-
-    @Configuration
-    @AllArgsConstructor
-    private static class Config {
-        @Bean("kafkaListenerContainerFactory")
-        public ConcurrentKafkaListenerContainerFactory<byte[], byte[]> kafkaPaymentsListener(Properties properties) {
-            Map<String, Object> props = new HashMap<>();
-            props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, properties.getKafkaPaymentsAddress());
-            props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, ByteArrayDeserializer.class);
-            props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ByteArrayDeserializer.class);
-            props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-            props.put(ConsumerConfig.GROUP_ID_CONFIG, "cme-cbt");
-            var consumerFactory = new DefaultKafkaConsumerFactory<byte[], byte[]>(props);
-            var containerFactory = new ConcurrentKafkaListenerContainerFactory<byte[], byte[]>();
-            containerFactory.setConsumerFactory(consumerFactory);
-            containerFactory.getContainerProperties().setAckMode(ContainerProperties.AckMode.RECORD);
-            return containerFactory;
-        }
-        @Bean
-        public ManagedChannel managedChannel() {
-            return ManagedChannelBuilder
-                    .forAddress("localhost",9090)
-                    .usePlaintext(true)
-                    .build();
-        }
-    }
-
-    @Data
-    @Component
-    @ConfigurationProperties(prefix = "app.trade")
-    class Properties {
-        private String kafkaPaymentsAddress;
-        private String kafkaConsumerGroup;
-    }
-
-
 }
