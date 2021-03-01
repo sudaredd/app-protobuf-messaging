@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "app.trade")
 public class Properties {
-    private String kafkaPaymentsAddress;
+    private String kafkaAddress;
     private String kafkaConsumerGroup;
 }

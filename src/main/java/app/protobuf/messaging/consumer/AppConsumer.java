@@ -13,10 +13,7 @@ import org.springframework.stereotype.Component;
 public class AppConsumer {
 
 
-    @KafkaListener(
-            topics = "greeting",
-            containerFactory = "kafkaListenerContainerFactory"
-    )
+//    @KafkaListener(     topics = "greeting",            containerFactory = "kafkaListenerContainerFactory"    )
     public void greetingReceiver(@Payload byte[] buffer) {
 
         HelloRequest request = ProtoUtil.parse(buffer, HelloRequest.class);
