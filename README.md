@@ -1,7 +1,7 @@
 # app-protobuf-messaging
 POC is implemented using gRPC, Protobuf, Spring boot, Kafka
 
-Sample json to test 
+Sample json to test, method POST 
 http://localhost:8081/trade/send
 
 {
