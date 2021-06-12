@@ -15,4 +15,4 @@ http://localhost:8081/trade/send
 
 
 This one class rest controller, then rest controller calls gRpc service-> gRpc write message to Kafka
-and then Kafka consumer reads message and logs it
+and then Kafka consumer reads message and insert trade object in DB
